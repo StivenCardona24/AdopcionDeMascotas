@@ -25,3 +25,8 @@ body{
     border-radius: 20px;
     box-shadow: 0px 0px 30px 5px gray;
   }
+
+
+.form .logo{
+    width: 20%;
+}
