@@ -56,7 +56,7 @@ var app = new Vue({
     },
 
     updateLocalStorage(){
-      localStorage.setItem('user',this.user);
+      localStorage.setItem('user', JSON.stringify(this.user));
   },
 
 

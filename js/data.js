@@ -115,7 +115,7 @@ var app = new Vue({
       }
 
       if(localStorage.getItem('user') != null){
-        this.user = localStorage.getItem('user');
+        this.user =  JSON.parse(localStorage.getItem('user'));
 
         let btn = document.getElementById("log");
         btn.click();

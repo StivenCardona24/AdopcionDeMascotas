@@ -6,7 +6,44 @@
 
 
 body{
-    background-color: #D2FCCC;
+    background-color: #BAEDFF;
+}
+
+
+
+#navbar{
+    background: linear-gradient(90deg, #04bef7, rgb(90, 173, 255) 25%, #0084ff);
+}
+
+#navbar img{
+    width: 60px;
+    color: white;
+}
+
+#navbar .navbar-brand span{
+    /* border: 2px solid #E29D16; */
+    color: #fff;
+}
+
+#navbar select{
+    background-color: #aeb1b3;
+    color: #191919;
+}
+
+#navbar a{
+    color: #FFDDBA;
+}
+
+#navbar a:hover{
+    color: #0084ff;
+}
+
+#navbar .logout{
+    color: #04bef7;
+}
+
+#navbar .logout:hover{
+    color: #0084ff;
 }
 
 #option .modal-body{
@@ -102,4 +139,40 @@ body{
 
 #option .card img{
     border-radius: 10px;
+}
+
+
+
+#main .carousel-inner{
+    max-height: 85vh;
+    object-fit: cover;
+    /*filter: grayscale(70%);*/
+}
+
+#carousel{
+    position: relative;
+}
+
+#carousel .overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(87, 82, 82);
+    z-index: 1;
+}
+
+#carousel .overlay a{
+    color: #fff;
+}
+
+#carousel .overlay .container,
+#carousel .overlay .row{
+    height: 100%;
+}
+
+#carousel .overlay .col{
+    margin: auto;
 }
