@@ -1,7 +1,62 @@
 var app = new Vue({
   el: "#app",
-  data: {},
-  methods: {},
+  data: {
+
+    users:[
+      {
+        id: 1,
+        name: 'Stiven Cardona',
+        pet: {},
+        email: "Stiven@gmail.com",
+        password: 12345678
+
+      },
+      {
+        id: 2,
+        name: 'Majo Gaviria',
+        pet: {},
+        email: "Majo@gmail.com",
+        password: 12345678
+
+      }
+
+
+    ],
+
+    user: null,
+    email: '',
+    password: '',
+
+  },
+  methods: {
+
+    login(){
+      if(this.email == '' || this.password == ''){
+        alert("Ingrese los datos del formulario");
+        return
+      }
+
+      this.users.forEach(element => {
+        if(element.email == this.email && element.password == this.password){
+          alert("Bienvenido");
+
+          this.user = element;
+
+          window.location.href = "web/Index.html";
+
+        }
+        
+      });
+
+      if(this.user == null){
+        alert("El email o contraseña es incorrecto");
+        return
+      }
+
+
+    }
+
+  },
 });
 
   //v-for="i in array" es una directiva de bue que permite recorrer un arreglo
