@@ -53,6 +53,9 @@ body{
     color: #FFDCDE;
 }
 
+#navbar .navbar-toggler{
+    background-color: #fff;
+}
 
 
 
@@ -195,7 +198,7 @@ body{
 #pets .menu-title{
     border-radius: 10px;
     margin: auto;
-    width: 30vw;
+    width: 40vw;
     background-color: #4A81FF;
     color: #fff;
 }

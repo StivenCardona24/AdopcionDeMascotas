@@ -34,7 +34,9 @@ var app = new Vue({
           gender: 'Macho',
           description: 'Amistoso, grande, con mucho amor',
           img: '../Images/perro.png',
-          condition: 0
+          condition: 0,
+          modal_id: 'p1',
+          modalw: '#p1',
   
   
         },
@@ -49,7 +51,9 @@ var app = new Vue({
           gender: 'Hembra',
           description: 'Amistoso, grande, con mucho amor',
           img: '../Images/perro2.png',
-          condition: 0
+          condition: 0,
+          modal_id: 'p2',
+          modalw: '#p2',
         },
   
         {
@@ -62,7 +66,9 @@ var app = new Vue({
           gender: 'Macho',
           description: 'Amistoso, pequeño, con mucho amor',
           img: '../Images/gato3.png',
-          condition: 0
+          condition: 0,
+          modal_id: 'p3',
+          modalw: '#p3',
         },
   
         {
@@ -75,7 +81,9 @@ var app = new Vue({
           gender: 'Hembra',
           description: 'Amistosa, pequeño, con mucho amor',
           img: '../Images/gato.png',
-          condition: 0
+          condition: 0,
+          modal_id: 'p4',
+          modalw: '#p4',
         },
   
   
@@ -84,14 +92,56 @@ var app = new Vue({
       ],
   
       newPets : [],
+
+      dataPets: [],
   
       user: null,
+      type: 'Especie',
+      option: 0,
      
   
     },
+    
     methods: {
   
      
+      logout(){
+        this.user = null;
+        localStorage.removeItem("user");
+        window.location.href = "../Login.html";
+      },
+
+      loadPets(){
+       
+        this.dataPets = this.newPets.map(e => e);
+
+        this.option = 1;
+        
+      },
+
+      loadForm(){
+        this.dataPets = [];
+        this.option = 2;
+
+      },
+
+      searchFor() {
+
+        if (this.type == "Especie") {
+  
+          this.dataPets = this.newPets;
+        }
+        else {
+          this.dataPets = this.newPets.filter(item => item.kind == this.type);
+          window.location.href = "#pets"
+  
+  
+        }
+
+    },
+
+
+
       updateLocalStorage(){
         localStorage.setItem('pets', JSON.stringify(this.newPets));
     },
@@ -124,7 +174,9 @@ var app = new Vue({
     else{
 
         
-        alert("No has iniciado sesión")
+        alert("No has iniciado sesión");
+
+        window.location.href = "../Login.html";
     }
 
       

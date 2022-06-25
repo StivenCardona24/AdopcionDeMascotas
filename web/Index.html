@@ -21,23 +21,21 @@
 
     
     <div id="app" >
-
-
-       
-       
+ 
+        <!-- Opcion de la fundacion -->
         <div class="modal fade" id="option" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <button  type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
                         <h5 class="text-center modal-title"><strong>Seleccione la opción</strong></h5>
-                        <button  type="button" class="btn btn-dark logout">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
+                        <button  type="button" class="btn btn-dark logout" @click="logout">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                     <div class="modal-body text-center align-content-center" >
                         
                         <div class="row row-cols-2 row-cols-md-2 g-4 ">
                             <div class="col mt-3 mb-4">
-                                <div class="card h-100 " data-bs-toggle="modal" data-bs-target="#chef-table">
+                                <div class="card h-100 " data-bs-toggle="modal" data-bs-target="#chef-table" @click="loadPets" >
                                     <img src="../Images/adoptar.png" class="card-img-top" alt="hb4">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Adoptar</h5>
@@ -45,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col mt-3 mb-4">
-                                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#waiter-table">
+                                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#waiter-table" @click="loadForm">
                                     <img src="../Images/adopcion.png" class="card-img-top" alt="hb4">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Dar en Adopción</h5>
@@ -54,38 +52,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button  type="button" ><strong>INGRESAR</strong></button>
-                    </div>
+                   
                 </div>
             </div>
         </div>
 
+
+        <!-- Cabecero -->
+
         <header class="sticky-top">
             <nav id="navbar" class="navbar bg-light ">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Index.html">
+                    <a class="navbar-brand" href="#">
                         <img src="../Images/casa-de-mascotas.png" alt="logo">
                       
                         <span>Fundación Adopta</span>
                     </a>
+                <h5 class="text-white" >Hola <span v-text = "user.name"></span></h5>
                   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                   </button>
+                  
                   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <img src="../Images/casa-de-mascotas.png" alt="logo">
                       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Fundación adopta</h5>
+                      
                       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
                                     
-                            <select class="form-select" aria-label="Default select example" v-model="category" @change="searchFor">
-                                  <option value="categories">Mascotas</option>
-                                  <option value="all">Caninos</option>
-                                  <option value="TV">Felinos</option>
+                            <select class="form-select" aria-label="Default select example" v-model="type" @change="searchFor">
+                                  <option value= "Especie" selected>Especie</option>
+                                  <option value="Canino">Caninos</option>
+                                  <option value="Felino">Felinos</option>
                                  
                                 </select>
                                 
@@ -98,11 +100,11 @@
                               <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#login" id="log" >Login</a>
                           </li> -->
         
-                          <li class="nav-item" v-if="client != ''">
+                          <li class="nav-item" >
                               <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#option"  id="log" >Opciones</a>
                           </li>
         
-                          <li class="nav-item" v-if="client != ''">
+                          <li class="nav-item" >
                               <button @click="logout" type="button" class="btn btn-dark logout">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
                           </li>
                           </ul>
@@ -119,7 +121,7 @@
         </header>
         <!-- HEADER -->
 
-         <!-- MAIN -->
+         <!-- Carusel de fotos -->
          <section id="main">
             <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
                 <div class="carousel-inner">
@@ -151,65 +153,86 @@
             </div>
         </section>
 
-         <!-- products -->
-       <section id="pets" class="mt-4">
+         <!-- Mascotas -->
+       <section id="pets" class="mt-4" v-if="option == 1">
         <div class="container">
             <div class="row">
                 <div class="col text-center text-uppercase">
                     <h1 class="menu-title" >MASCOTAS</h1>
                 </div>
             </div>
-            <!-- Products here -->
-            <!-- hamburgers -->
-            <div class="row" v-if="newPets.length">
-                <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in newPets" :key="item.id">
+            
+            <div class="row" v-if="dataPets.length">
+                <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in dataPets" :key="item.id">
                     <div class="card  h-100  " >
-                        <img :src="item.img" class="card-img-top" alt="hb1" data-bs-toggle="modal" :data-bs-target="item.modalw">
+                        <img :src="item.img" class="card-img-top mt-2" alt="hb1" data-bs-toggle="modal" :data-bs-target="item.modalw">
                         <div class="card-body flex-column justify-content-between">
-                            <h5 class="card-title" v-text="item.name">Appliance</h5>
-                            <p class="card-text"><strong  v-text="item.desc"></strong></p>
+                            <h5 class="card-title" v-text="item.name">Mascota</h5>
+                            <p class="card-text text-dark"> Especie: <strong v-text="item.kind"></strong> Raza: <strong  v-text="item.breed"></strong> Genero: <strong v-text="item.gender"></strong> Color: <strong v-text="item.color"> </strong></p>
+                        
                           
                             <div class="row">
-                                <div class="btnadd"><button @click="addToCart(item)" type="button" class="col-12 btn btn-dark">Adoptar</button></div>
+                                <div class="btnadd"><button type="button" class="col-12 btn btn-dark">Adoptar</button></div>
                             </div>
                         </div>
                     </div>
-                    <!-- modals hamburguers -->
+                    <!-- modals mascota -->
                     <div id="modals">
                         <div  class="modal fade" :id="item.modal_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title text-center" id="exampleModalLabel" v-text="item.name"></h5>
-                                        <button @click="closemodal(item)" type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                                        <button  type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
                                     </div>
                                     <div class="modal-body">
                                         <img :src="item.img" class="card-img-top" alt="hd4">
                                         <h4>Description:</h4>
-                                        <p v-text="item.descmodal"></p>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text bg-dark"><button @click="minusbtn(item)" type="button" class="btn btn-dark"><i class="fas fa-minus"></i></button></span>
-                                            <input type="number" min="0" max="20" class="form-control" placeholder="Cantidad" v-model.number="item.order_amount">
-                                            <span class="input-group-text bg-dark"><button @click="plusbtn(item)" type="button" class="btn btn-dark"><i class="fas fa-plus"></i></button></span>
-                                        </div>
+                                        <p v-text="item.description"></p>
+                                       
                                     </div>
                                     <div class="modal-footer">
-                                        <button @click="addToCart(item)" type="button"><strong>ADD</strong></button>
+                                        <button  type="button"><strong>ADD</strong></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /modals hamburguers -->
+                    <!-- /modals mascota -->
                 </div>
             </div>
-            <!-- /hamburgers -->
+            <!-- /mascotas -->
             
 
             
         </div>
     </section>
-    <!-- /products -->
+
+
+    <!-- Añadir una nueva mascota -->
+
+    <div class="abs-center" v-if="option == 2">
+        <div   class="border p-3 form text-center" >
+          <img src="Images/casa-de-mascotas.png" class="logo" alt="LogoMascotas">
+          <h1 class="mb-3">Iniciar Sesión</h1>
+          <div class="form-group  mb-3">
+            <label for="email" class="mb-1 ">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" v-model="email">
+            
+          </div>
+          <div class="form-group mb-3">
+            <label for="password" class="mb-1">Contraseña:</label>
+            <input type="password" name="password" id="password" class="form-control" v-model="password">
+          </div>
+          <button type="submit" class="btn btn-primary" @click="login">Ingresar</button>
+        </div>
+        
+      </div>
+        
+
+
+
+   
                                   
                             
        
