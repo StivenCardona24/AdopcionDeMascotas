@@ -18,7 +18,15 @@ var app = new Vue({
         email: "Majo@gmail.com",
         password: 12345678
 
-      }
+      },
+      {
+        id: 3,
+        name: 'Carlos Montoya',
+        pet: {},
+        email: "carlos@gmail.com",
+        password: 12345678
+
+      },
 
 
     ],

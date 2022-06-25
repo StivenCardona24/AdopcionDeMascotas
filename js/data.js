@@ -18,7 +18,15 @@ var app = new Vue({
           email: "Majo@gmail.com",
           password: 12345678
   
-        }
+        },
+        {
+          id: 3,
+          name: 'Carlos Montoya',
+          pet: {},
+          email: "carlos@gmail.com",
+          password: 12345678
+  
+        },
   
   
       ],
@@ -79,8 +87,7 @@ var app = new Vue({
             img: '../Images/gato.png',
             condition: 0
           },
-        ],     
-
+        ],
       }],
   
       newPets : [],
