@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mb-4">
+                            <div class="col mt-3 mb-4">
                                 <div class="card h-100" data-bs-toggle="modal" data-bs-target="#waiter-table">
                                     <img src="../Images/adopcion.png" class="card-img-top" alt="hb4">
                                     <div class="card-body">
@@ -62,53 +62,60 @@
         </div>
 
         <header class="sticky-top">
-            <nav id="navbar" class="navbar navbar-expand-lg bg-dark navbar-dark ">
-                <div class="container">
+            <nav id="navbar" class="navbar bg-light ">
+                <div class="container-fluid">
                     <a class="navbar-brand" href="Index.html">
                         <img src="../Images/casa-de-mascotas.png" alt="logo">
                       
                         <span>Fundación Adopta</span>
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            
-                            
-                            <li class="nav-item">
-                            
-                              <select class="form-select" aria-label="Default select example" v-model="category" @change="searchFor">
-                                    <option value="categories">Mascotas</option>
-                                    <option value="all">Caninos</option>
-                                    <option value="TV">Felinos</option>
-                                   
-                                  </select>
-                                  
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#main">Home</a>
-                            </li>
-                    
-                            
-                            
-<!--                            
-                            <li class="nav-item" v-if="client == ''">
-                                <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#login" id="log" >Login</a>
-                            </li> -->
-
-                            <li class="nav-item" v-if="client != ''">
-                                <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#option"  id="log" >Opciones</a>
-                            </li>
-
-                            <li class="nav-item" v-if="client != ''">
-                                <button @click="logout" type="button" class="btn btn-dark logout">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
-                            </li>
-                            
-                        </ul>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <img src="../Images/casa-de-mascotas.png" alt="logo">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Fundación adopta</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                                    
+                            <select class="form-select" aria-label="Default select example" v-model="category" @change="searchFor">
+                                  <option value="categories">Mascotas</option>
+                                  <option value="all">Caninos</option>
+                                  <option value="TV">Felinos</option>
+                                 
+                                </select>
+                                
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#main">Home</a>
+                          </li>        
+        <!--                            
+                          <li class="nav-item" v-if="client == ''">
+                              <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#login" id="log" >Login</a>
+                          </li> -->
+        
+                          <li class="nav-item" v-if="client != ''">
+                              <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#option"  id="log" >Opciones</a>
+                          </li>
+        
+                          <li class="nav-item" v-if="client != ''">
+                              <button @click="logout" type="button" class="btn btn-dark logout">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
+                          </li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <div class="d-flex mt-3" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </nav>
+              </nav>
         </header>
         <!-- HEADER -->
 
@@ -131,10 +138,10 @@
                     <div class="overlay">
                         <div class="container">
                             <div class="row align-items-center">
-                                <div class="col md-6 offset-md-6 text-center text-md-start">
+                                <div class="col md-6 offset-md-6 text-center text-md-end">
                                     <h1><blockquote>"Hasta que no hayas amado a un animal , una parte de tu alma permanecera dormida"</blockquote></h1>
-                                    <p class="d-none d-md-block">
-                                       Antonela France
+                                    <p class=" d-md-block">
+                                       -Antonela France
                                     </p>
                                 </div>
                             </div>
@@ -144,10 +151,72 @@
             </div>
         </section>
 
-        
+         <!-- products -->
+       <section id="pets" class="mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center text-uppercase">
+                    <h1 class="menu-title" >MASCOTAS</h1>
+                </div>
+            </div>
+            <!-- Products here -->
+            <!-- hamburgers -->
+            <div class="row" v-if="newPets.length">
+                <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in newPets" :key="item.id">
+                    <div class="card  h-100  " >
+                        <img :src="item.img" class="card-img-top" alt="hb1" data-bs-toggle="modal" :data-bs-target="item.modalw">
+                        <div class="card-body flex-column justify-content-between">
+                            <h5 class="card-title" v-text="item.name">Appliance</h5>
+                            <p class="card-text"><strong  v-text="item.desc"></strong></p>
+                          
+                            <div class="row">
+                                <div class="btnadd"><button @click="addToCart(item)" type="button" class="col-12 btn btn-dark">Adoptar</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modals hamburguers -->
+                    <div id="modals">
+                        <div  class="modal fade" :id="item.modal_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center" id="exampleModalLabel" v-text="item.name"></h5>
+                                        <button @click="closemodal(item)" type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img :src="item.img" class="card-img-top" alt="hd4">
+                                        <h4>Description:</h4>
+                                        <p v-text="item.descmodal"></p>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text bg-dark"><button @click="minusbtn(item)" type="button" class="btn btn-dark"><i class="fas fa-minus"></i></button></span>
+                                            <input type="number" min="0" max="20" class="form-control" placeholder="Cantidad" v-model.number="item.order_amount">
+                                            <span class="input-group-text bg-dark"><button @click="plusbtn(item)" type="button" class="btn btn-dark"><i class="fas fa-plus"></i></button></span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button @click="addToCart(item)" type="button"><strong>ADD</strong></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modals hamburguers -->
+                </div>
+            </div>
+            <!-- /hamburgers -->
+            
+
+            
+        </div>
+    </section>
+    <!-- /products -->
                                   
                             
        
+   
+
+
+
 
 
 
@@ -166,3 +235,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.0-alpha.4/vue.js"></script>
 <script src="../js/data.js"></script>
 </html>
+
+
+
+
+
