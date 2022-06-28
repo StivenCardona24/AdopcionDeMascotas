@@ -6,7 +6,7 @@ var app = new Vue({
         {
           id: 1,
           name: 'Stiven Cardona',
-          pet: {},
+          pets: [],
           email: "Stiven@gmail.com",
           password: 12345678
   
@@ -14,7 +14,7 @@ var app = new Vue({
         {
           id: 2,
           name: 'Majo Gaviria',
-          pet: {},
+          pets: [],
           email: "Majo@gmail.com",
           password: 12345678
   
@@ -128,9 +128,33 @@ var app = new Vue({
 
 
       logout(){
-        this.user = null;
-        localStorage.removeItem("user");
-        window.location.href = "../Login.html";
+
+        Swal.fire({
+          title: '¿Estas seguro de cerrar sesión?',
+          text: "Seras redirigido a la página inicial",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Cerrar Sesión'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Cerrando sesión!',
+              'Has cerrado sesión correctamente',
+              'success'
+            );
+            setTimeout(function(){     
+              this.user = null;
+              localStorage.removeItem("user");
+              window.location.href = "../Login.html";
+        
+            
+          }.bind(this), 3000);
+           
+          }
+        })
+        
       },
 
       loadPets(){
@@ -182,7 +206,12 @@ var app = new Vue({
 
       savePet(){
        if(this.pet.name ==  ""|| this.pet.breed ==  "" || this.pet.color == " " ||  this.pet.kind =='' ||  this.pet.edad== '' ||  this.pet.gender== '' ||  this.pet.img== ''){
-          alert("Ingrese correctamente todos los datos");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ingresa correctamente todos los datos',
+         
+        });
           return
        }
 
@@ -203,7 +232,11 @@ var app = new Vue({
 
        )
 
-       alert("Se guardo correctamente");
+       Swal.fire(
+        'Se Guardo correctamente la mascota',
+        'Presiona el botón',
+        'success'
+      )
       this.updateLocalStorage();
        
       
@@ -225,15 +258,40 @@ var app = new Vue({
 
     },
 
+    adopt(pet){
+
+      Swal.fire({
+        title: `¿Estas seguro de adoptar a ${pet.name}?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.user.pets.push(pet);
+          pet.condition = 1;
+          Swal.fire(`Felicitaciones! Has tomado la mejor decisción, has adoptado a ${pet.name}`, '', 'success')
+          this.loadPets();
+          this.updateLocalStorage();
+        } else if (result.isDenied) {
+          Swal.fire('Oh :c, espero adoptes otra mascota', '', 'info')
+        }
+      })
+
+    },
+
 
 
       updateLocalStorage(){
+        localStorage.setItem('users', JSON.stringify(this.users));
         localStorage.setItem('pets', JSON.stringify(this.newPets));
     },
   
   
     listData(){
       this.newPets = this.pets;
+    
       this.updateLocalStorage();
     },
   
@@ -248,18 +306,37 @@ var app = new Vue({
       else{
           this.listData();
       }
+      if(localStorage.getItem('users') != null){
+        this.users = JSON.parse(localStorage.getItem('users'))
+    }
 
       if(localStorage.getItem('user') != null){
         this.user =  JSON.parse(localStorage.getItem('user'));
 
-        let btn = document.getElementById("log");
-        btn.click();
+        this.users.forEach(element => {
+          if(element.id == this.user.id){
+            this.user = element;
+            console.log("hola");
+          }
+          
+        });
+
+      
+
+        
+
+        
 
     }
     else{
 
         
-        alert("No has iniciado sesión");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No has iniciado sesión',
+       
+      });
 
         window.location.href = "../Login.html";
     }
@@ -271,6 +348,15 @@ var app = new Vue({
       
      
   
+  },
+
+  mounted() {
+
+    if(this.user != null){
+      let btn = document.getElementById("log");
+        btn.click();
+    }
+    
   },
   
   });

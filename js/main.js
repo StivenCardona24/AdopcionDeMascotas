@@ -6,7 +6,7 @@ var app = new Vue({
       {
         id: 1,
         name: 'Stiven Cardona',
-        pet: {},
+        pets: [],
         email: "Stiven@gmail.com",
         password: 12345678
 
@@ -14,7 +14,7 @@ var app = new Vue({
       {
         id: 2,
         name: 'Majo Gaviria',
-        pet: {},
+        pets: [],
         email: "Majo@gmail.com",
         password: 12345678
 
@@ -32,29 +32,66 @@ var app = new Vue({
 
     login(){
       if(this.email == '' || this.password == ''){
-        alert("Ingrese los datos del formulario");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ingresa correctamente los datos del formulario',
+         
+        });
         return
       }
 
       this.users.forEach(element => {
         if(element.email == this.email && element.password == this.password){
-          alert("Bienvenido");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Has iniciado sesión correctamente'
+          })
+
 
           this.user = element;
           this.updateLocalStorage();
 
-          window.location.href = "web/Index.html";
+          
+        
 
         }
         
       });
 
       if(this.user == null){
-        alert("El email o contraseña es incorrecto");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El email y/o contraseña son incorrectos',
+         
+        });
         return
+      }
+      else{
+        setTimeout(function(){     
+          window.location.href = "web/Index.html";
+    
+        
+      }.bind(this), 3500);
+
       }
     },
 
+
+    
     updateLocalStorage(){
       localStorage.setItem('user', JSON.stringify(this.user));
   },
