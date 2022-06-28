@@ -195,7 +195,7 @@ body{
 
 
 
-#pets .menu-title{
+#pets .menu-title,  #form-pet .menu-title{
     border-radius: 10px;
     margin: auto;
     width: 40vw;
@@ -241,5 +241,112 @@ body{
  
     background-color: #7EBBFB;
 }
+
+
+#form-pet{
+    background-color: #FFB2B2;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #fff;
+    padding: 15px 25px;
+}
+
+
+#form-pet .img-pet img{
+    width: 100px;
+    
+}
+
+
+
+#imgPerfil .modal-body{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+}
+
+#imgPerfil .row{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#imgPerfil .modal-content{
+    border: none;
+}
+
+#imgPerfil .modal-body{
+    background-color: #B2D8FF;
+    border: none;
+}
+
+#imgPerfil .modal-body p{
+    font-weight: bold;
+    text-align: justify;
+}
+
+#imgPerfil .modal-header button{
+    background-color: #4A81FF;
+    color: #fff;
+}
+
+
+#imgPerfil .modal-header button:hover{
+    color: #fff;
+    background-color: #04bef7;
+}
+
+#imgPerfil .modal-header .modal-title{
+    color: #fff;
+}
+
+
+
+#imgPerfil .modal-body img{
+    border-radius: 10px;
+}
+
+#imgPerfil .modal-header, .modal-footer{
+    background-color: #7EBBFB;
+    color: #fff;
+    border: none;
+}
+
+#imgPerfil .modal-footer button{
+    margin: auto;
+    font-size: 18px;
+    background-color: transparent;
+    border: 0;
+    padding: 10px 30px;
+    
+    cursor: pointer;
+    color: #fff;
+    transition: 0.5s all ease;
+}
+
+#imgPerfil .modal-footer button:hover{
+   
+    color: #0751ff;
+}
+
+
+#imgPerfil .row  img{
+    background-color: #FFB2B2;
+    margin: auto;
+
+    border-radius: 10px;
+    cursor: pointer;
+   
+}
+
+#imgPerfil .row  img:hover{
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
+.select{
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
 
 

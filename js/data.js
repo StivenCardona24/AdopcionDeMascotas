@@ -90,6 +90,10 @@ var app = new Vue({
   
   
       ],
+
+      imagesCats:["../Images/gato.png", "../Images/gato2.png", "../Images/gato3.png", "../Images/gato4.png"],
+      imagesDogs:["../Images/perro.png","../Images/perro2.png", "../Images/perro3.png", "../Images/perro4.png",],
+      images:[],
   
       newPets : [],
 
@@ -98,6 +102,22 @@ var app = new Vue({
       user: null,
       type: 'Especie',
       option: 0,
+
+      pet: {
+        name: "",
+        breed: "",
+        color: '',
+        kind: '',
+        edad: '',
+        gender: '',
+        description: '',
+        img: '',
+       
+
+      },
+
+      img: '',
+     
      
   
     },
@@ -105,6 +125,8 @@ var app = new Vue({
     methods: {
   
      
+
+
       logout(){
         this.user = null;
         localStorage.removeItem("user");
@@ -113,16 +135,79 @@ var app = new Vue({
 
       loadPets(){
        
-        this.dataPets = this.newPets.map(e => e);
-
+        
+        this.dataPets = this.newPets.filter(e => e.condition == 0);
         this.option = 1;
         
       },
 
       loadForm(){
-        this.dataPets = [];
+        
         this.option = 2;
 
+      },
+
+      loadImg(){
+
+        if(this.pet.kind =='Canino'){
+          this.images = this.imagesDogs;
+        }
+        if(this.pet.kind =='Felino'){
+          this.images = this.imagesCats;
+        }
+
+        for(item in this.images){
+          console.log(item);
+        }
+
+        
+      },
+
+      searchImg(item){
+        this.img = item;
+
+     
+      },
+
+      saveImg(){
+        if(this.img == ''){
+          "Seleccione una imagen para la mascota"
+          return
+        }
+
+        this.pet.img = this.img;
+        let btn = document.getElementById("closeImg");
+        btn.click();
+      },
+
+      savePet(){
+       if(this.pet.name ==  ""|| this.pet.breed ==  "" || this.pet.color == " " ||  this.pet.kind =='' ||  this.pet.edad== '' ||  this.pet.gender== '' ||  this.pet.img== ''){
+          alert("Ingrese correctamente todos los datos");
+          return
+       }
+
+       this.newPets.push({
+        id: this.newPets.lenght + 1,
+        name: this.pet.name,
+        breed: this.pet.breed,
+        color: this.pet.color,
+        kind: this.pet.kind,
+        edad: this.pet.edad,
+        gender: this.pet.gender,
+        description: this.pet.description,
+        img: this.pet.img,
+        condition: 0,
+        modal_id: `p${this.newPets.lenght + 1}`,
+        modalw: `#p${this.newPets.lenght + 1}`,
+       }
+
+       )
+
+       alert("Se guardo correctamente");
+      this.updateLocalStorage();
+       
+      
+      
       },
 
       searchFor() {
@@ -178,6 +263,10 @@ var app = new Vue({
 
         window.location.href = "../Login.html";
     }
+
+
+    
+
 
       
      

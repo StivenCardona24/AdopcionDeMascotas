@@ -35,7 +35,7 @@
                         
                         <div class="row row-cols-2 row-cols-md-2 g-4 ">
                             <div class="col mt-3 mb-4">
-                                <div class="card h-100 " data-bs-toggle="modal" data-bs-target="#chef-table" @click="loadPets" >
+                                <div class="card h-100 "  data-bs-dismiss="modal" @click="loadPets" >
                                     <img src="../Images/adoptar.png" class="card-img-top" alt="hb4">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Adoptar</h5>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col mt-3 mb-4">
-                                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#waiter-table" @click="loadForm">
+                                <div class="card h-100"  data-bs-dismiss="modal"  @click="loadForm" > 
                                     <img src="../Images/adopcion.png" class="card-img-top" alt="hb4">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Dar en Adopción</h5>
@@ -150,12 +150,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </section>
 
          <!-- Mascotas -->
-       <section id="pets" class="mt-4" v-if="option == 1">
-        <div class="container">
+       <section id="pets" class="mt-4 container" v-if="option == 1">
+       
             <div class="row">
                 <div class="col text-center text-uppercase">
                     <h1 class="menu-title" >MASCOTAS</h1>
@@ -205,30 +205,110 @@
             
 
             
-        </div>
+        
     </section>
 
 
     <!-- Añadir una nueva mascota -->
+<section class="container mt-4"  id="form-pet" v-if="option == 2">
 
-    <div class="abs-center" v-if="option == 2">
-        <div   class="border p-3 form text-center" >
-          <img src="Images/casa-de-mascotas.png" class="logo" alt="LogoMascotas">
-          <h1 class="mb-3">Iniciar Sesión</h1>
-          <div class="form-group  mb-3">
-            <label for="email" class="mb-1 ">Email:</label>
-            <input type="email" name="email" id="email" class="form-control" v-model="email">
-            
-          </div>
-          <div class="form-group mb-3">
-            <label for="password" class="mb-1">Contraseña:</label>
-            <input type="password" name="password" id="password" class="form-control" v-model="password">
-          </div>
-          <button type="submit" class="btn btn-primary" @click="login">Ingresar</button>
+    <div class="row mb-3">
+        <div class="col text-center text-uppercase">
+            <h1 class="menu-title  mt-3" >DATOS DE LA MASCOTA</h1>
         </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4 col-sm-6">
+          <label for="inputEmail4" class="form-label" >Nombre:</label>
+          <input type="text" class="form-control" id="inputEmail4" placeholder="firulais" v-model="pet.name">
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <label for="inputPassword4" class="form-label">Raza:</label>
+          <input type="text" class="form-control" id="inputPassword4" placeholder="Bull Dog" v-model="pet.breed">
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <label for="inputAddress" class="form-label">Color:</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Negro" v-model="pet.color">
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label" for="autoSizingSelect">Especie o tipo</label>
+            <select class="form-select" id="autoSizingSelect" @change="loadImg" v-model="pet.kind">
+                <option selected>Choose...</option>
+                <option value="Felino">Felino</option>
+                <option value="Canino">Canino</option>
+                
+            </select>
+          </div>
+        <div class="col-md-4 col-sm-6">
+          <label for="inputAddress2" class="form-label">Edad</label>
+          <input type="number" class="form-control" id="inputAddress2" placeholder="Edad en meses" v-model="pet.edad">
         
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label" for="autoSizingSelect">Genero</label>
+            <select class="form-select" id="autoSizingSelect" v-model="pet.gender">
+                <option selected>Choose...</option>
+                <option value="Macho">Macho</option>
+                <option value="Hembra">Hembra</option>
+                
+            </select>
+          </div>
+        <div class="col-12">
+          <label for="inputCity" class="form-label">Descripción: </label>
+          <input type="text" class="form-control" id="inputCity" v-model="pet.description" placeholder="Amoroso, cariñoso, grande, entre otros">
+        </div>
+        <div class="col-md-6 col-sm-6 img-pet">
+            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imgPerfil">Subir Imágen</button>
+            <img :src="pet.img" alt="" >
+        </div>
+
+        
+        
+        
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" @click="savePet">Guardar</button>
+        </div>
       </div>
         
+      
+        
+
+
+      <div class="modal fade" id="imgPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    
+                    <h5 class="text-center modal-title"><strong>Seleccione una imágen de perfil</strong></h5>
+                    <button  type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close" id="closeImg"><i class="fas fa-times"></i></button>
+                   
+                </div>
+                <div class="modal-body text-center align-content-center" v-if="images.length">
+                    
+                    <div class="row row-cols-2 row-cols-md-2 g-4 "  >
+                        <div class="col mt-3 mb-2" v-for="item in images" >
+                            <img :src="item" class="img-thumbnail" alt="..." @click="searchImg(item)">
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-body text-center align-content-center" v-else>
+                    <p>Debes seleccionar la especie o tipo de la mascota</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-dark" @click="saveImg">Guardar</button>
+                    
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
 
 
 
