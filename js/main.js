@@ -8,7 +8,8 @@ var app = new Vue({
         name: 'Stiven Cardona',
         pets: [],
         email: "Stiven@gmail.com",
-        password: 12345678
+        password: 12345678,
+        type: 2
 
       },
       {
@@ -16,10 +17,19 @@ var app = new Vue({
         name: 'Majo Gaviria',
         pets: [],
         email: "Majo@gmail.com",
-        password: 12345678
+        password: 12345678,
+        type: 2
 
-      }
+      },
+      {
+        id: 3,
+        name: 'Carlos Mario',
+        pets: [],
+        email: "carlos@gmail.com",
+        password: 12345678,
+        type: 1
 
+      },
 
     ],
 
@@ -78,14 +88,18 @@ var app = new Vue({
           text: 'El email y/o contraseña son incorrectos',
          
         });
+        this.email = '';
+        this.password = '';
         return
       }
       else{
+        this.email = '';
+        this.password = '';
         setTimeout(function(){     
           window.location.href = "web/Index.html";
     
         
-      }.bind(this), 3500);
+      }.bind(this), 3000);
 
       }
     },

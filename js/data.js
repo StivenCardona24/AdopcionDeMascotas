@@ -8,7 +8,8 @@ var app = new Vue({
           name: 'Stiven Cardona',
           pets: [],
           email: "Stiven@gmail.com",
-          password: 12345678
+          password: 12345678,
+          type: 2
   
         },
         {
@@ -16,10 +17,19 @@ var app = new Vue({
           name: 'Majo Gaviria',
           pets: [],
           email: "Majo@gmail.com",
-          password: 12345678
+          password: 12345678,
+          type: 2
   
-        }
+        },
+        {
+          id: 3,
+          name: 'Carlos Mario',
+          pets: [],
+          email: "carlos@gmail.com",
+          password: 12345678,
+          type: 1
   
+        },
   
       ],
   
@@ -30,7 +40,7 @@ var app = new Vue({
           breed: 'Criollo',
           color: 'Café',
           kind: 'Canino',
-          edad: '5 meses',
+          edad: '5',
           gender: 'Macho',
           description: 'Amistoso, grande, con mucho amor',
           img: '../Images/perro.png',
@@ -47,7 +57,7 @@ var app = new Vue({
           breed: 'Labrador',
           color: 'Café',
           kind: 'Canino',
-          edad: '6 meses',
+          edad: '6',
           gender: 'Hembra',
           description: 'Amistoso, grande, con mucho amor',
           img: '../Images/perro2.png',
@@ -62,7 +72,7 @@ var app = new Vue({
           breed: 'Criollo',
           color: 'Beige',
           kind: 'Felino',
-          edad: '6 meses',
+          edad: '6',
           gender: 'Macho',
           description: 'Amistoso, pequeño, con mucho amor',
           img: '../Images/gato3.png',
@@ -77,7 +87,7 @@ var app = new Vue({
           breed: 'Criollo',
           color: 'Café',
           kind: 'Felino',
-          edad: '4 meses',
+          edad: '4',
           gender: 'Hembra',
           description: 'Amistosa, pequeño, con mucho amor',
           img: '../Images/gato.png',
@@ -150,7 +160,7 @@ var app = new Vue({
               window.location.href = "../Login.html";
         
             
-          }.bind(this), 3000);
+          }.bind(this), 2000);
            
           }
         })
@@ -180,11 +190,14 @@ var app = new Vue({
           this.images = this.imagesCats;
         }
 
-        for(item in this.images){
-          console.log(item);
-        }
 
         
+      },
+
+      loadAdmin(){
+
+        this.option = 3;
+
       },
 
       searchImg(item){
@@ -195,7 +208,12 @@ var app = new Vue({
 
       saveImg(){
         if(this.img == ''){
-          "Seleccione una imagen para la mascota"
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Selecciona una imagen para tu mascota',
+           
+          });
           return
         }
 
@@ -216,7 +234,7 @@ var app = new Vue({
        }
 
        this.newPets.push({
-        id: this.newPets.lenght + 1,
+        id: this.newPets.length + 1,
         name: this.pet.name,
         breed: this.pet.breed,
         color: this.pet.color,
@@ -226,8 +244,8 @@ var app = new Vue({
         description: this.pet.description,
         img: this.pet.img,
         condition: 0,
-        modal_id: `p${this.newPets.lenght + 1}`,
-        modalw: `#p${this.newPets.lenght + 1}`,
+        modal_id: `p${this.newPets.length + 1}`,
+        modalw: `#p${this.newPets.length + 1}`,
        }
 
        )
@@ -236,7 +254,17 @@ var app = new Vue({
         'Se Guardo correctamente la mascota',
         'Presiona el botón',
         'success'
-      )
+      );
+
+      this.pet.name = "";
+      this.pet.breed = "";
+      this.pet.color = '';
+      this.pet.kind = '';
+      this.pet.edad = '';
+      this.pet.name = '';
+      this.pet.name = '';
+      this.pet.name = '';
+
       this.updateLocalStorage();
        
       

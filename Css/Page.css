@@ -195,7 +195,7 @@ body{
 
 
 
-#pets .menu-title,  #form-pet .menu-title{
+#pets .menu-title,  #form-pet .menu-title, #admin .menu-title{
     border-radius: 10px;
     margin: auto;
     width: 40vw;
@@ -250,7 +250,7 @@ body{
 }
 
 
-#form-pet{
+#form-pet, #admin{
     background-color: #FFB2B2;
     border-radius: 10px;
     box-shadow: 0 0 20px #fff;
@@ -357,3 +357,18 @@ body{
 
 
 
+#admin .menu-title{
+    width: 60vw;
+}
+#admin h2{
+    text-align: center;
+    background-color: #4A81FF;
+    color: #fff;
+    width: 30vw;
+    margin: auto;
+    border-radius: 10px;
+}
+
+#admin table td img{
+    width: 80px;
+}
