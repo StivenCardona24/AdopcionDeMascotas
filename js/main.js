@@ -3,43 +3,69 @@ var app = new Vue({
   data: {
 
     users:[
-      {
-        id: 1,
-        name: 'Stiven Cardona',
-        pets: [],
-        email: "Stiven@gmail.com",
-        password: 12345678,
-        type: 2
+      // {
+      //   id: 1,
+      //   name: 'Stiven Cardona',
+      //   pets: [],
+      //   email: "Stiven@gmail.com",
+      //   password: 12345678,
+      //   type: 2
 
-      },
-      {
-        id: 2,
-        name: 'Majo Gaviria',
-        pets: [],
-        email: "Majo@gmail.com",
-        password: 12345678,
-        type: 2
+      // },
+      // {
+      //   id: 2,
+      //   name: 'Majo Gaviria',
+      //   pets: [],
+      //   email: "Majo@gmail.com",
+      //   password: 12345678,
+      //   type: 2
 
-      },
-      {
-        id: 3,
-        name: 'Carlos Mario',
-        pets: [],
-        email: "carlos@gmail.com",
-        password: 12345678,
-        type: 1
+      // },
+      // {
+      //   id: 3,
+      //   name: 'Carlos Mario',
+      //   pets: [],
+      //   email: "carlos@gmail.com",
+      //   password: 12345678,
+      //   type: 1
 
-      },
+      // },
 
     ],
 
     user: null,
     email: '',
     password: '',
+    arrayData:[]
 
   },
   methods: {
 
+    async listUser(){
+      const url = 'https://randomuser.me/api/?results=10';
+      // const response = await fetch(url);
+      // this.listData = response.json();
+
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => this.arrayData = data);
+
+      
+        this.users = this.arrayData.results.map( user => { 
+         return{
+           ...user, 
+          fullName: `${user.name.first} ${user.name.last}`,
+          pets: [],
+          type:  Math.floor(Math.random()* 2)
+          
+         }
+         
+        });
+
+        this.updateLocalStorage();
+
+      
+    },
     login(){
       if(this.email == '' || this.password == ''){
         Swal.fire({
@@ -52,7 +78,7 @@ var app = new Vue({
       }
 
       this.users.forEach(element => {
-        if(element.email == this.email && element.password == this.password){
+        if(element.login.username == this.email && element.login.password == this.password){
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -107,7 +133,9 @@ var app = new Vue({
 
     
     updateLocalStorage(){
+      
       localStorage.setItem('user', JSON.stringify(this.user));
+      localStorage.setItem('users', JSON.stringify(this.users));
   },
 
 
@@ -116,6 +144,15 @@ var app = new Vue({
 
 
   created() {
+    if(localStorage.getItem('users') != null){
+      this.users = JSON.parse(localStorage.getItem('users'))
+  }
+  else{
+
+  
+    this.listUser();
+
+  }
 
 
    

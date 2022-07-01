@@ -372,3 +372,16 @@ body{
 #admin table td img{
     width: 80px;
 }
+
+#admin table .botones {
+    text-align: center;
+    width: 40px;
+    margin-right: 5px;
+    padding: 5px;
+
+}
+
+#admin table .botones img{
+    margin: auto;
+    width: 25px;
+}

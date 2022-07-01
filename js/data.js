@@ -3,33 +3,33 @@ var app = new Vue({
     data: {
   
       users:[
-        {
-          id: 1,
-          name: 'Stiven Cardona',
-          pets: [],
-          email: "Stiven@gmail.com",
-          password: 12345678,
-          type: 2
+        // {
+        //   id: 1,
+        //   name: 'Stiven Cardona',
+        //   pets: [],
+        //   email: "Stiven@gmail.com",
+        //   password: 12345678,
+        //   type: 2
   
-        },
-        {
-          id: 2,
-          name: 'Majo Gaviria',
-          pets: [],
-          email: "Majo@gmail.com",
-          password: 12345678,
-          type: 2
+        // },
+        // {
+        //   id: 2,
+        //   name: 'Majo Gaviria',
+        //   pets: [],
+        //   email: "Majo@gmail.com",
+        //   password: 12345678,
+        //   type: 2
   
-        },
-        {
-          id: 3,
-          name: 'Carlos Mario',
-          pets: [],
-          email: "carlos@gmail.com",
-          password: 12345678,
-          type: 1
+        // },
+        // {
+        //   id: 3,
+        //   name: 'Carlos Mario',
+        //   pets: [],
+        //   email: "carlos@gmail.com",
+        //   password: 12345678,
+        //   type: 1
   
-        },
+        // },
   
       ],
   
@@ -110,6 +110,32 @@ var app = new Vue({
       dataPets: [],
   
       user: null,
+      user2:{
+        gender: '',
+        name: {
+          title: '',
+          first: '',
+          last: ''
+        },
+        location: {
+          street: '',
+          city: '',
+          state: '',
+          postcode: '',
+
+      },
+      email: '',
+      login: {
+        
+        username: '',
+        password: '',
+       
+       
+      },
+      phone: '',
+      cell: '',
+      nat: ''
+    },
       type: 'Especie',
       option: 0,
 
@@ -200,6 +226,112 @@ var app = new Vue({
 
       },
 
+      deleteUser(index){
+        Swal.fire({
+          title: '¿Estas seguro de elimar el Usuario?',
+          text: "Se eliminará el Usuario y no podras rehacer",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Aceptar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Elimando el usuario!',
+              'Se ha eliminado correctamente el usuario',
+              'success'
+            );
+  
+            this.users.splice(index);
+            this.updateLocalStorage();
+            
+        
+  
+        
+        
+           
+          }
+        })
+  
+      },
+
+
+      selectUser(user){
+      
+        this.user2.id = user.id.name;
+        this.user2.gender = user.gender;
+        this.user2.name.title = user.name.title;
+        this.user2.name.first = user.name.first;
+        this.user2.name.last = user.name.last;
+        this.user2.location.street = user.location.street;
+        this.user2.location.city = user.location.city;
+        this.user2.location.state = user.location.state;
+        this.user2.location.postcode = user.location.postcode;
+        
+        this.user2.email = user.email;
+        this.user2.login.username = user.login.username;
+        this.user2.login.password = user.login.password;
+        this.user2.phone = user.phone;
+        this.user2.cell = user.cell;
+        this.user2.nat = user.nat;
+
+  
+        // let btn = document.getElementById("update");
+        // btn.classList.remove('disabled')
+  
+      },
+      updateUser(){
+      
+
+      
+        this.users.forEach(u => {
+          if(u.id.name == this.user2.id.name)  
+          {
+            
+
+            u.gender = this.user2.gender ;
+            u.name.title= this.user2.name.title ;
+            u.name.first = this.user2.name.first ;
+            u.name.last = this.user2.name.last ;
+            u.location.street = this.user2.location.street ;
+            u.location.city = this.user2.location.city ;
+            u.location.state = this.user2.location.state ;
+            u.location.postcode = this.user2.location.postcode;
+            
+            u.email =  this.user2.email ;
+            u.login.username = this.user2.login.username ;   
+            u.phone = this.user2.phone ;
+            u.cell = this.user2.cell ;
+            u.nat = this.user2.nat;
+            
+            
+          }
+          
+        });
+  
+        this.user2.id = '';
+        this.user2.gender = '';
+        this.user2.name.title = ''
+        this.user2.name.first = '';
+        this.user2.name.last = '';
+        this.user2.location.street = '';
+        this.user2.location.city = '';
+        this.user2.location.state = '';
+        this.user2.location.postcode = '';
+        
+        this.user2.email = '';
+        this.user2.login.username = '';
+        this.user2.login.password = '';
+        this.user2.phone = '';
+        this.user2.cell = '';
+        this.user2.nat = '';
+        this.updateLocalStorage();
+        // let btn = document.getElementById("update");
+        // btn.classList.add('disabled')
+      },
+    
+  
       searchImg(item){
         this.img = item;
 
@@ -384,6 +516,11 @@ var app = new Vue({
       let btn = document.getElementById("log");
         btn.click();
     }
+
+    if(localStorage.getItem('users') != null){
+      this.users = JSON.parse(localStorage.getItem('users'))
+  }
+  
     
   },
   
