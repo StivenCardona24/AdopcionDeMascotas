@@ -62,6 +62,7 @@ var app = new Vue({
          
         });
 
+        console.log(this.users);
         this.updateLocalStorage();
 
       
